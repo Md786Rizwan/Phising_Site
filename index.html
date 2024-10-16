@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Phishing Site Detector</title>
+    <link rel="stylesheet" href="/static/styles.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Phishing Site Detector</h1>
+        <form id="predict-form" action="/predict" method="post">
+            <label for="url-input">Enter Website URL:</label>
+            <input type="text" id="url-input" name="url" placeholder="https://example.com" required>
+            <button type="submit">Check</button>
+        </form>
+
+        <div id="loading" style="display: none;">
+            <p>Processing... Please wait.</p>
+            <img src="/static/loading.gif" alt="Loading" />
+        </div>
+
+        {% if result %}
+        <div id="result" class="{% if error %}error{% else %}success{% endif %}">
+            <h3>Result for {{ url }}:</h3>
+            <p>{{ result }}</p>
+        </div>
+        {% endif %}
+    </div>
+
+    <script>
+        // Add loading spinner visibility while the form is being submitted
+        const form = document.getElementById('predict-form');
+        const loading = document.getElementById('loading');
+        form.addEventListener('submit', () => {
+            loading.style.display = 'block';
+        });
+    </script>
+</body>
+</html>
